@@ -1,27 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import css from './Filter.module.css';
+import s from './Filter.module.css';
+import { changeFilter, getFilter } from 'redux/contactSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Filter = ({ value, onChange }) => {
+const Filter = () => {
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+  const showVisibleContacts = e =>
+    dispatch(changeFilter(e.currentTarget.value));
+
   return (
-    <label className={css.label}>
+    <label className={s.label}>
       Find contacts by name
       <input
-        className={css.input}
+        className={s.input}
         type="text"
-        value={value}
-        onChange={onChange}
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        value={filter}
+        onChange={showVisibleContacts}
         placeholder="type here"
       />
     </label>
   );
-};
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default Filter;

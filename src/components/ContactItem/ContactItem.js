@@ -1,29 +1,27 @@
 import PropTypes from 'prop-types';
-import css from './ContactItem.module.css';
-
-const ContactItem = ({ id, name, number, onDelete }) => {
+import s from 'components/ContactItem/ContactItem.module.css';
+function ContactItem({ id, name, number, onDeleteContact }) {
   return (
     <>
       <span>
         {name}: {number}
       </span>
       <button
-        className={css.button}
-        type="submit"
-        name={name}
-        onClick={() => onDelete(id)}
+        className={s.button}
+        type="button"
+        onClick={() => onDeleteContact(id)}
       >
         X
       </button>
     </>
   );
-};
+}
+
+export default ContactItem;
 
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };
-
-export default ContactItem;
